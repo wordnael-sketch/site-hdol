@@ -1,0 +1,822 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex, nofollow">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>HDOL — Hospital de Olhos do Lago Norte</title>
+<meta name="description" content="Hospital oftalmológico com centro cirúrgico no Lago Norte e unidade na Asa Sul, em Brasília. Consultas, exames e cirurgias.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=Jost:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  color-scheme: light;
+  --azul:#1a4f9c;
+  --azul-escuro:#0f2f5c;
+  --ceu:#4c81b5;
+  --salvia:#7f908b;
+  --gelo:#eef3f8;
+  --papel:#ffffff;
+  --tinta:#13243a;
+  --tinta-suave:#47586b;
+  --linha:#d5dfe9;
+  --sucesso:#1f7a4d;
+  --erro:#b3261e;
+  --sim-bg:#0f2f5c;
+  --sim-tinta:#f3f7fb;
+  --sim-suave:#b9cbe0;
+  --sombra:0 18px 40px -24px rgba(15,47,92,.45);
+  --display:"Jost", "Avenir Next", "Segoe UI", system-ui, sans-serif;
+  --texto:"Atkinson Hyperlegible", "Segoe UI", system-ui, -apple-system, sans-serif;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    color-scheme: dark;
+    --azul:#7fb0ea; --azul-escuro:#cfe0f5; --ceu:#6f9fd2; --salvia:#9fb0ab;
+    --gelo:#13233a; --papel:#0b1829; --tinta:#e8eef6; --tinta-suave:#a9b8c9; --linha:#26405f;
+    --sucesso:#5fcf95; --erro:#ff8a80; --sim-bg:#06111f; --sim-tinta:#f3f7fb; --sim-suave:#b9cbe0;
+    --sombra:0 18px 40px -24px rgba(0,0,0,.8);
+  }
+}
+:root[data-theme="dark"]{
+  color-scheme: dark;
+  --azul:#7fb0ea; --azul-escuro:#cfe0f5; --ceu:#6f9fd2; --salvia:#9fb0ab;
+  --gelo:#13233a; --papel:#0b1829; --tinta:#e8eef6; --tinta-suave:#a9b8c9; --linha:#26405f;
+  --sucesso:#5fcf95; --erro:#ff8a80; --sim-bg:#06111f; --sim-tinta:#f3f7fb; --sim-suave:#b9cbe0;
+  --sombra:0 18px 40px -24px rgba(0,0,0,.8);
+}
+*,*::before,*::after{box-sizing:inherit}
+[hidden]{display:none!important}
+html{scroll-padding-top:calc(env(safe-area-inset-top,0px) + 88px);scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--papel);color:var(--tinta);font-family:var(--texto);font-size:1.125rem;line-height:1.6}
+img{max-width:100%;display:block}
+a{color:var(--azul)}
+h1,h2,h3{font-family:var(--display);line-height:1.12;margin:0;color:var(--azul-escuro);font-weight:600;letter-spacing:-.01em}
+h2{font-size:clamp(2rem,3.6vw,2.9rem)}
+h3{font-size:1.35rem;font-weight:600}
+p{margin:0}
+:focus-visible{outline:3px solid var(--ceu);outline-offset:3px;border-radius:6px}
+.wrap{width:min(1180px,100% - 2.5rem);margin-inline:auto}
+.lead{font-size:1.25rem;color:var(--tinta-suave);max-width:38rem}
+section{padding-block:clamp(4rem,9vw,7rem)}
+.sec-head{display:grid;gap:1rem;margin-bottom:2.5rem;max-width:44rem}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+/* barra de demonstração */
+.demo{background:var(--azul-escuro);color:var(--papel);font-size:.9rem;padding:.45rem 0}
+.demo .wrap{display:flex;flex-wrap:wrap;gap:.25rem 1rem;justify-content:space-between}
+.demo a{color:inherit}
+
+/* botões */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:.6rem;min-height:3.25rem;padding:.8rem 1.5rem;border-radius:999px;border:2px solid var(--azul);background:var(--azul);color:var(--papel);font:600 1.05rem/1.2 var(--display);text-decoration:none;cursor:pointer;transition:background .2s,color .2s,transform .2s}
+.btn:hover{background:var(--azul-escuro);border-color:var(--azul-escuro)}
+.btn.ghost{background:transparent;color:var(--azul)}
+.btn.ghost:hover{background:var(--gelo);color:var(--azul-escuro)}
+.btn svg{width:1.2em;height:1.2em;flex:none}
+
+/* cabeçalho */
+header.top{position:sticky;top:0;z-index:20;background:color-mix(in srgb,var(--papel) 92%,transparent);backdrop-filter:saturate(1.4) blur(10px);-webkit-backdrop-filter:saturate(1.4) blur(10px);padding-top:env(safe-area-inset-top,0px);transition:box-shadow .3s}
+header.top.stuck{box-shadow:0 8px 24px -18px rgba(15,47,92,.6)}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:color-mix(in srgb,var(--papel) 92%,transparent);backdrop-filter:blur(10px)}
+.top .wrap{display:flex;align-items:center;gap:1.5rem;min-height:76px}
+.logo{display:flex;align-items:center;gap:.7rem;text-decoration:none;color:inherit;margin-right:auto}
+.logo .mark{display:flex;align-items:center;font:700 2rem/1 var(--display);letter-spacing:-.02em}
+.logo .mark .h{color:var(--azul)}
+.logo .mark .d,.logo .mark .l{color:var(--salvia)}
+.logo .mark svg{width:1.55rem;height:1.55rem;color:var(--azul);margin-inline:.05rem}
+.logo small{font-size:.78rem;line-height:1.15;color:var(--tinta-suave);max-width:9.5rem}
+nav.main{display:flex;gap:1.4rem}
+nav.main a{color:var(--tinta);text-decoration:none;font:500 1rem var(--display);padding:.4rem 0;background:linear-gradient(var(--azul),var(--azul)) left bottom/0 2px no-repeat;transition:background-size .3s}
+nav.main a:hover{background-size:100% 2px}
+.menu-btn{display:none;width:3rem;height:3rem;border:0;background:transparent;color:var(--tinta);cursor:pointer;border-radius:10px}
+.menu-btn span{display:block;width:24px;height:2px;margin:5px auto;background:currentColor;transition:transform .3s,opacity .3s}
+.menu-btn[aria-expanded="true"] span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.menu-btn[aria-expanded="true"] span:nth-child(2){opacity:0}
+.menu-btn[aria-expanded="true"] span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+@media (max-width:960px){
+  nav.main{position:absolute;inset:100% 0 auto;flex-direction:column;gap:0;background:var(--papel);border-bottom:1px solid var(--linha);padding:.5rem 1.25rem 1rem;display:none}
+  nav.main.open{display:flex}
+  nav.main a{padding:.85rem 0;border-bottom:1px solid var(--linha);font-size:1.1rem}
+  .menu-btn{display:block}
+  .top .btn{display:none}
+}
+
+/* hero */
+.hero{padding-block:clamp(2.5rem,6vw,5rem) clamp(4rem,8vw,6rem);background:var(--gelo);overflow:hidden}
+.hero .wrap{display:grid;grid-template-columns:1.15fr .85fr;gap:clamp(2rem,5vw,4.5rem);align-items:center}
+.hero h1{font-size:clamp(2.6rem,5.4vw,4.4rem);font-weight:600;margin-bottom:1.5rem}
+.hero .lead{margin-bottom:2rem}
+.hero .ctas{display:flex;flex-wrap:wrap;gap:.8rem;margin-bottom:2.5rem}
+.facts{display:grid;grid-template-columns:repeat(3,auto);gap:1.5rem 2.5rem;justify-content:start;padding:0;margin:0;list-style:none;border-top:1px solid var(--linha);padding-top:1.5rem}
+.facts b{display:block;font:600 1.05rem var(--display);color:var(--azul-escuro)}
+.facts span{font-size:.98rem;color:var(--tinta-suave)}
+.hero-photo{position:relative;justify-self:end;width:min(100%,440px)}
+.hero-photo img{border-radius:220px 220px 28px 28px;aspect-ratio:5/6;object-fit:cover;box-shadow:var(--sombra);position:relative;z-index:1}
+.hero-ring{position:absolute;width:78%;left:-30%;bottom:-14%;color:var(--ceu);opacity:.9;z-index:2}
+.hero-ring .draw{stroke-dashoffset:0;animation:draw 1.6s cubic-bezier(.6,.1,.2,1) .2s both}
+@keyframes draw{from{stroke-dashoffset:240}}
+.hero-photo figcaption{position:absolute;right:-.75rem;bottom:1.5rem;z-index:3;background:var(--papel);border-radius:14px;padding:.75rem 1rem;box-shadow:var(--sombra);font-size:.92rem;max-width:15rem;line-height:1.35}
+@media (max-width:860px){
+  .hero .wrap{grid-template-columns:1fr}
+  .hero-photo{justify-self:center;width:min(100%,380px);margin-top:1rem}
+  .facts{grid-template-columns:1fr 1fr}
+}
+
+/* sintomas */
+.chips{display:flex;flex-wrap:wrap;gap:.6rem;margin-bottom:1rem}
+.chip{border:1.5px solid var(--linha);background:var(--papel);color:var(--tinta);border-radius:999px;padding:.6rem 1.1rem;font:500 1rem var(--display);cursor:pointer;min-height:2.9rem;transition:background .15s,border-color .15s,color .15s}
+.chip:hover{border-color:var(--ceu)}
+.chip[aria-pressed="true"]{background:var(--azul);border-color:var(--azul);color:var(--papel)}
+.chip[aria-pressed="true"]::before{content:"✓ "}
+.hint{font-size:.95rem;color:var(--tinta-suave);margin-bottom:2rem}
+.areas{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:1.25rem}
+.area{border:1px solid var(--linha);border-radius:20px;padding:1.6rem;display:flex;flex-direction:column;gap:.8rem;background:var(--papel);transition:transform .3s,box-shadow .3s,opacity .25s}
+.area:hover{transform:translateY(-6px);box-shadow:var(--sombra)}
+.area p{color:var(--tinta-suave);font-size:1.02rem}
+.area ul{margin:0;padding-left:1.1rem;font-size:1rem}
+.area .who{margin-top:auto;padding-top:.8rem;border-top:1px dashed var(--linha);font-size:.95rem;color:var(--tinta-suave)}
+.area[hidden]{display:none}
+.area.match{border-color:var(--ceu);box-shadow:0 0 0 1px var(--ceu)}
+
+/* simulador */
+.sim{background:var(--sim-bg);color:var(--sim-tinta)}
+.sim h2{color:var(--sim-tinta)}
+.sim .lead{color:var(--sim-suave)}
+.sim .wrap{display:grid;grid-template-columns:.8fr 1.2fr;gap:clamp(2rem,5vw,4rem);align-items:center}
+.seg{display:grid;grid-template-columns:1fr 1fr;gap:.5rem;margin:2rem 0 1.5rem}
+.seg button{border:1.5px solid color-mix(in srgb,var(--sim-tinta) 25%,transparent);background:transparent;color:var(--sim-tinta);border-radius:14px;padding:.85rem 1rem;font:500 1.02rem var(--display);text-align:left;cursor:pointer;transition:background .2s,border-color .2s}
+.seg button:hover{border-color:var(--sim-suave)}
+.seg button[aria-pressed="true"]{background:var(--sim-tinta);color:#0f2f5c;border-color:var(--sim-tinta)}
+.sim-info{min-height:7.5rem}
+.sim-info p{color:var(--sim-suave)}
+.sim-info p + p{margin-top:.6rem}
+.sim-note{font-size:.92rem;color:var(--sim-suave);border-left:3px solid var(--ceu);padding-left:.9rem;margin-top:1.5rem}
+.viewer{position:relative;border-radius:24px;overflow:hidden;aspect-ratio:3/2;background:#000;box-shadow:0 30px 60px -30px #000;--pos:50%;user-select:none;touch-action:pan-y}
+.viewer img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.viewer .cond{position:absolute;inset:0;clip-path:inset(0 0 0 var(--pos))}
+.viewer .cond::after{content:"";position:absolute;inset:0;pointer-events:none}
+.viewer.catarata .cond img{filter:blur(3px) sepia(.6) saturate(.75) contrast(.7) brightness(1.08)}
+.viewer.catarata .cond::after{background:radial-gradient(circle at 50% 45%,rgba(255,244,214,.35),rgba(255,236,190,.2) 60%)}
+.viewer.glaucoma .cond::after{background:radial-gradient(ellipse 30% 36% at 50% 48%,transparent 0,transparent 55%,rgba(0,0,0,.65) 100%),radial-gradient(ellipse 52% 60% at 50% 48%,transparent 40%,rgba(0,0,0,.94) 100%)}
+.viewer.dmri .cond img{filter:contrast(.92)}
+.viewer.dmri .cond::after{background:radial-gradient(ellipse 21% 28% at 50% 46%,rgba(30,30,30,.92) 0,rgba(55,55,55,.75) 45%,rgba(90,90,90,.3) 75%,transparent 100%)}
+.viewer.retinopatia .cond img{filter:blur(1.2px) saturate(.85)}
+.viewer.retinopatia .cond::after{background:
+ radial-gradient(circle at 28% 34%,rgba(10,10,10,.85) 0 3.5%,transparent 6%),
+ radial-gradient(circle at 63% 26%,rgba(10,10,10,.8) 0 2.5%,transparent 5%),
+ radial-gradient(circle at 46% 62%,rgba(10,10,10,.85) 0 5%,transparent 9%),
+ radial-gradient(circle at 74% 70%,rgba(10,10,10,.7) 0 3%,transparent 6%),
+ radial-gradient(circle at 18% 75%,rgba(10,10,10,.75) 0 2.5%,transparent 5%),
+ radial-gradient(circle at 85% 42%,rgba(10,10,10,.6) 0 2%,transparent 4%)}
+.viewer .line{position:absolute;top:0;bottom:0;left:var(--pos);width:3px;margin-left:-1.5px;background:#fff;pointer-events:none}
+.viewer .knob{position:absolute;top:50%;left:var(--pos);width:64px;height:64px;margin:-32px 0 0 -32px;border-radius:50%;background:#fff;color:#1a4f9c;display:grid;place-items:center;box-shadow:0 6px 18px rgba(0,0,0,.35);pointer-events:none}
+.viewer .knob svg{width:44px;height:44px}
+.viewer .tag{position:absolute;top:1rem;padding:.35rem .8rem;border-radius:999px;background:rgba(0,0,0,.55);color:#fff;font:500 .92rem var(--display);pointer-events:none}
+.viewer .tag.l{left:1rem}
+.viewer .tag.r{right:1rem}
+.viewer input{position:absolute;inset:0;width:100%;height:100%;margin:0;opacity:0;cursor:ew-resize}
+.viewer:has(input:focus-visible){outline:3px solid var(--ceu);outline-offset:4px}
+@media (max-width:900px){.sim .wrap{grid-template-columns:1fr}.viewer{aspect-ratio:4/3}}
+
+/* estrutura */
+.gal{display:grid;grid-template-columns:repeat(6,1fr);grid-auto-rows:150px;gap:1rem}
+.gal button{border:0;padding:0;border-radius:18px;overflow:hidden;cursor:zoom-in;background:var(--gelo);position:relative}
+.gal img{width:100%;height:100%;object-fit:cover;transition:transform .5s}
+.gal button:hover img{transform:scale(1.06)}
+.gal button span{position:absolute;left:.8rem;bottom:.8rem;background:rgba(15,47,92,.82);color:#fff;font:500 .9rem var(--display);padding:.35rem .75rem;border-radius:999px}
+.g1{grid-column:span 3;grid-row:span 3}
+.g2{grid-column:span 3;grid-row:span 2}
+.g3{grid-column:span 2;grid-row:span 3}
+.g4{grid-column:span 1;grid-row:span 3}
+.g5{grid-column:span 3;grid-row:span 2}
+@media (max-width:760px){.gal{grid-template-columns:1fr 1fr;grid-auto-rows:170px}.g1,.g2,.g3,.g4,.g5{grid-column:span 1;grid-row:span 1}.g1{grid-column:span 2;grid-row:span 2}}
+dialog.lb{border:0;padding:0;background:transparent;max-width:min(92vw,1100px);max-height:92vh}
+dialog.lb::backdrop{background:rgba(5,14,28,.88)}
+dialog.lb figure{margin:0;display:grid;gap:.75rem;justify-items:center}
+dialog.lb img{max-height:80vh;width:auto;border-radius:14px}
+dialog.lb figcaption{color:#fff;font:500 1.05rem var(--display)}
+.lb-ctrl{position:fixed;top:50%;transform:translateY(-50%);width:3.2rem;height:3.2rem;border-radius:50%;border:0;background:#fff;color:#0f2f5c;font-size:1.5rem;cursor:pointer}
+.lb-prev{left:1rem}.lb-next{right:1rem}
+.lb-close{position:fixed;top:calc(env(safe-area-inset-top,0px) + 1rem);right:1rem;width:3rem;height:3rem;border-radius:50%;border:0;background:#fff;color:#0f2f5c;font-size:1.4rem;cursor:pointer}
+
+/* equipe */
+.equipe{background:var(--gelo)}
+.equipe .wrap{display:grid;grid-template-columns:1fr 1fr;gap:clamp(2rem,5vw,4rem);align-items:start}
+.equipe figure{margin:0}
+.equipe figure img{border-radius:24px;box-shadow:var(--sombra)}
+.equipe figure figcaption{font-size:.92rem;color:var(--tinta-suave);margin-top:.75rem}
+.docs{list-style:none;margin:2rem 0 0;padding:0;display:grid}
+.docs li{display:grid;grid-template-columns:1fr auto;gap:.2rem 1rem;padding:1.1rem 0;border-bottom:1px solid var(--linha)}
+.docs li:first-child{border-top:1px solid var(--linha)}
+.docs b{font:600 1.15rem var(--display);color:var(--azul-escuro)}
+.docs .crm{font-size:.92rem;color:var(--tinta-suave);text-align:right}
+.docs .area-d{grid-column:1/-1;color:var(--tinta-suave);font-size:1rem}
+.pend{display:inline-block;font-size:.78rem;font-family:var(--display);background:#fff1c7;color:#6b4e00;border-radius:6px;padding:.05rem .45rem;margin-left:.35rem;vertical-align:middle}
+@media (max-width:900px){.equipe .wrap{grid-template-columns:1fr}}
+
+/* unidades */
+.tabs{display:flex;gap:.5rem;border-bottom:2px solid var(--linha);margin-bottom:2rem;position:relative}
+.tabs button{border:0;background:transparent;font:600 1.15rem var(--display);color:var(--tinta-suave);padding:.9rem 1.2rem;cursor:pointer;border-bottom:3px solid transparent;margin-bottom:-2px;transition:color .2s,border-color .25s}
+.tabs button[aria-selected="true"]{color:var(--azul);border-color:var(--azul)}
+.panel{display:grid;grid-template-columns:1.1fr .9fr;gap:2rem;align-items:start}
+.panel[hidden]{display:none}
+.panel dl{display:grid;grid-template-columns:auto 1fr;gap:.9rem 1.5rem;margin:0}
+.panel dt{font:600 1rem var(--display);color:var(--azul-escuro)}
+.panel dd{margin:0}
+.panel .card{background:var(--gelo);border-radius:20px;padding:1.6rem;display:grid;gap:1rem}
+.panel .card p{color:var(--tinta-suave)}
+@media (max-width:820px){.panel{grid-template-columns:1fr}.panel dl{grid-template-columns:1fr;gap:.2rem}.panel dd{margin-bottom:.8rem}}
+
+/* convênios */
+.conv{background:var(--gelo)}
+.conv .wrap{display:grid;grid-template-columns:.9fr 1.1fr;gap:clamp(2rem,5vw,4rem)}
+.search{display:grid;gap:.5rem}
+.search label{font:600 1.05rem var(--display)}
+.search input{font:inherit;font-size:1.15rem;padding:1rem 1.2rem;border-radius:14px;border:2px solid var(--linha);background:var(--papel);color:var(--tinta)}
+.search input:focus{border-color:var(--azul);outline:none}
+.conv-result{margin-top:1rem;min-height:3.5rem;font-size:1.05rem}
+.conv-list{list-style:none;padding:0;margin:0;display:grid;gap:.75rem}
+.conv-list li{background:var(--papel);border-radius:16px;padding:1.1rem 1.3rem;display:grid;gap:.15rem;border:1px solid var(--linha)}
+.conv-list li b{font:600 1.08rem var(--display);color:var(--azul-escuro)}
+.conv-list li span{color:var(--tinta-suave);font-size:.98rem}
+.conv-list li.hit{border-color:var(--azul);box-shadow:0 0 0 1px var(--azul)}
+@media (max-width:860px){.conv .wrap{grid-template-columns:1fr}}
+
+/* agendar */
+.agendar .wrap{display:grid;grid-template-columns:.8fr 1.2fr;gap:clamp(2rem,5vw,4rem)}
+.steps{list-style:none;display:flex;gap:.4rem;padding:0;margin:0 0 2rem;counter-reset:s}
+.steps li{flex:1;display:grid;gap:.4rem;font:500 .92rem var(--display);color:var(--tinta-suave);counter-increment:s}
+.steps li::before{content:counter(s);display:grid;place-items:center;width:2rem;height:2rem;border-radius:50%;border:2px solid var(--linha);font-weight:600;transition:all .25s}
+.steps li.on{color:var(--azul-escuro)}
+.steps li.on::before{border-color:var(--azul);background:var(--azul);color:var(--papel)}
+.steps li.done::before{content:"✓";border-color:var(--sucesso);background:var(--sucesso);color:var(--papel)}
+form.ag{background:var(--papel);border:1px solid var(--linha);border-radius:24px;padding:clamp(1.25rem,3vw,2rem);box-shadow:var(--sombra)}
+form.ag fieldset{border:0;padding:0;margin:0;display:grid;gap:1rem}
+form.ag fieldset[hidden]{display:none}
+form.ag legend{font:600 1.35rem var(--display);color:var(--azul-escuro);margin-bottom:.5rem;padding:0}
+.opts{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:.6rem}
+.opt{position:relative}
+.opt input{position:absolute;opacity:0}
+.opt span{display:grid;gap:.15rem;border:2px solid var(--linha);border-radius:14px;padding:.9rem 1rem;cursor:pointer;transition:border-color .15s,background .15s}
+.opt span small{color:var(--tinta-suave);font-size:.9rem}
+.opt input:checked + span{border-color:var(--azul);background:var(--gelo)}
+.opt input:focus-visible + span{outline:3px solid var(--ceu);outline-offset:2px}
+.field{display:grid;gap:.4rem}
+.field label{font:600 1rem var(--display)}
+.field input,.field select{font:inherit;font-size:1.08rem;padding:.85rem 1rem;border-radius:12px;border:2px solid var(--linha);background:var(--papel);color:var(--tinta)}
+.field input:focus,.field select:focus{border-color:var(--azul);outline:none}
+.field .msg{font-size:.95rem;min-height:1.4rem}
+.field.bad input{border-color:var(--erro)}
+.field.bad .msg{color:var(--erro)}
+.field.ok .msg{color:var(--sucesso)}
+.nav-btns{display:flex;justify-content:space-between;gap:.75rem;margin-top:1.75rem}
+.err-step{color:var(--erro);font-size:.98rem;min-height:1.4rem;margin-top:.5rem}
+.btn.loading{pointer-events:none;width:3.25rem;padding:0;overflow:hidden;color:transparent}
+.btn.loading::after{content:"";position:absolute;width:1.4rem;height:1.4rem;border-radius:50%;border:3px solid rgba(255,255,255,.4);border-top-color:#fff;animation:spin .8s linear infinite}
+.btn{position:relative;transition:width .3s,background .2s,color .2s}
+@keyframes spin{to{transform:rotate(360deg)}}
+.done-box{display:grid;gap:1rem}
+.done-box pre{white-space:pre-wrap;background:var(--gelo);border-radius:14px;padding:1rem 1.2rem;font:1rem/1.5 var(--texto);margin:0;color:var(--tinta)}
+.contato-direto{display:grid;gap:1rem;margin-top:2rem}
+.contato-direto a{font:600 1.15rem var(--display);text-decoration:none}
+.contato-direto span{display:block;font:400 .95rem var(--texto);color:var(--tinta-suave)}
+@media (max-width:900px){.agendar .wrap{grid-template-columns:1fr}.steps li{font-size:0}.steps li::before{font-size:.95rem}}
+
+/* faq */
+.faq .wrap{max-width:860px}
+.faq details{border-bottom:1px solid var(--linha)}
+.faq summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;gap:1rem;align-items:center;padding:1.3rem 0;font:600 1.2rem var(--display);color:var(--azul-escuro)}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"";flex:none;width:.75rem;height:.75rem;border-right:2.5px solid var(--azul);border-bottom:2.5px solid var(--azul);transform:rotate(45deg) translateY(-3px);transition:transform .35s}
+.faq details[open] summary::after{transform:rotate(225deg) translate(-3px,0)}
+.faq details p{padding:0 0 1.4rem;color:var(--tinta-suave);max-width:46rem}
+
+/* rodapé */
+footer{background:var(--azul-escuro);color:#dbe6f2;padding-block:4rem 2rem}
+:root[data-theme="dark"] footer{background:#06111f}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) footer{background:#06111f}}
+footer .wrap{display:grid;grid-template-columns:1.2fr 1fr 1fr 1fr;gap:2rem}
+footer h3{color:#fff;font-size:1.05rem;margin-bottom:.75rem}
+footer a{color:#fff}
+footer p,footer li{font-size:.98rem}
+footer ul{list-style:none;padding:0;margin:0;display:grid;gap:.4rem}
+footer .legal{grid-column:1/-1;border-top:1px solid rgba(255,255,255,.15);padding-top:1.5rem;font-size:.9rem;color:#aac0d8;display:flex;flex-wrap:wrap;gap:.5rem 2rem;justify-content:space-between}
+footer .logo .mark .h, footer .logo .mark svg{color:#fff}
+footer .logo .mark .d, footer .logo .mark .l{color:#aab9b4}
+footer .logo small{color:#c3d3e4}
+@media (max-width:860px){footer .wrap{grid-template-columns:1fr 1fr}}
+@media (max-width:520px){footer .wrap{grid-template-columns:1fr}}
+
+.totop{position:fixed;right:1rem;bottom:calc(env(safe-area-inset-bottom,0px) + 5.5rem);z-index:15;width:3.2rem;height:3.2rem;border-radius:50%;border:0;background:var(--azul);color:var(--papel);font-size:1.3rem;cursor:pointer;box-shadow:var(--sombra);opacity:0;transform:translateY(12px);pointer-events:none;transition:opacity .3s,transform .3s}
+.totop.show{opacity:1;transform:none;pointer-events:auto}
+
+@media (prefers-reduced-motion: reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
+}
+</style>
+</head>
+<body>
+
+<header class="top" id="topo">
+  <div class="wrap">
+    <a class="logo" href="#inicio" aria-label="HDOL, Hospital de Olhos do Lago Norte, início">
+      <span class="mark" aria-hidden="true"><span class="h">H</span><span class="d">D</span><svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="33" fill="none" stroke="currentColor" stroke-width="26" stroke-dasharray="6.4 2.24" transform="rotate(-90 50 50)"/></svg><span class="l">L</span></span>
+      <small>Hospital de Olhos do Lago Norte</small>
+    </a>
+    <nav class="main" id="menu" aria-label="Principal">
+      <a href="#atendimento">Atendimento</a>
+      <a href="#simulador">Simulador</a>
+      <a href="#estrutura">Estrutura</a>
+      <a href="#equipe">Equipe</a>
+      <a href="#unidades">Unidades</a>
+      <a href="#convenios">Convênios</a>
+    </nav>
+    <a class="btn" href="#agendar">Agendar consulta</a>
+    <button class="menu-btn" aria-expanded="false" aria-controls="menu" aria-label="Abrir menu"><span></span><span></span><span></span></button>
+  </div>
+</header>
+
+<main id="inicio">
+<section class="hero" aria-labelledby="h-hero">
+  <div class="wrap">
+    <div>
+      <h1 id="h-hero">Cuidado completo com os seus olhos, da consulta à cirurgia.</h1>
+      <p class="lead">Hospital oftalmológico com centro cirúrgico próprio no Lago Norte e uma unidade na Asa Sul. Atendemos da criança ao idoso, com uma equipe que começou em família.</p>
+      <div class="ctas">
+        <a class="btn" href="#agendar">Agendar consulta</a>
+        <a class="btn ghost" href="https://wa.me/5561920007750?text=Ol%C3%A1%2C%20gostaria%20de%20informa%C3%A7%C3%B5es%20sobre%20cirurgia." target="_blank" rel="noopener">Falar sobre cirurgia</a>
+      </div>
+      <ul class="facts">
+        <li><b>Segunda a sexta</b><span>8h às 18h</span></li>
+        <li><b>Sábado</b><span>8h às 12h</span></li>
+        <li><b>Duas unidades</b><span>Lago Norte e Asa Sul</span></li>
+      </ul>
+    </div>
+    <figure class="hero-photo">
+      <img src="img/hero.jpg" alt="Médica do HDOL sentada à mesa do consultório, segurando um modelo anatômico do olho" width="900" height="1080">
+      <svg class="hero-ring" viewBox="0 0 100 100" aria-hidden="true">
+        <defs><mask id="m-ring"><circle class="draw" cx="50" cy="50" r="38" fill="none" stroke="#fff" stroke-width="30" stroke-dasharray="240 240" transform="rotate(-90 50 50)"/></mask></defs>
+        <circle cx="50" cy="50" r="38" fill="none" stroke="currentColor" stroke-width="14" stroke-dasharray="7.3 2.65" transform="rotate(-90 50 50)" mask="url(#m-ring)"/>
+      </svg>
+      <figcaption>Cada consulta começa explicando, com calma, o que está acontecendo com a sua visão.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<section id="atendimento" aria-labelledby="h-at">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2 id="h-at">O que você está sentindo?</h2>
+      <p class="lead">Toque no que mais se parece com o seu caso para ver as áreas que cuidam disso. Pode marcar mais de uma opção.</p>
+    </div>
+    <div class="chips" role="group" aria-label="Sintomas e situações">
+      <button class="chip" aria-pressed="false" data-t="catarata refrativa">Vista embaçada</button>
+      <button class="chip" aria-pressed="false" data-t="refrativa">Dificuldade para ler de perto</button>
+      <button class="chip" aria-pressed="false" data-t="refrativa">Dor de cabeça ao ler ou nas telas</button>
+      <button class="chip" aria-pressed="false" data-t="superficie">Olho seco, ardência ou areia</button>
+      <button class="chip" aria-pressed="false" data-t="retina">Manchas ou pontos na visão</button>
+      <button class="chip" aria-pressed="false" data-t="retina glaucoma">Tenho diabetes ou pressão alta</button>
+      <button class="chip" aria-pressed="false" data-t="glaucoma">Glaucoma na família</button>
+      <button class="chip" aria-pressed="false" data-t="pediatria">Criança com dificuldade para enxergar</button>
+      <button class="chip" aria-pressed="false" data-t="pediatria">Olho desviado</button>
+      <button class="chip" aria-pressed="false" data-t="plastica">Pálpebra caída ou lacrimejamento</button>
+      <button class="chip" aria-pressed="false" data-t="superficie">Película crescendo sobre o olho</button>
+    </div>
+    <p class="hint" id="chip-status" aria-live="polite">Mostrando todas as áreas. Isto é só um guia: quem orienta o tratamento é o médico, na consulta.</p>
+    <div class="areas">
+      <article class="area" data-a="catarata">
+        <h3>Catarata</h3>
+        <p>Quando o cristalino, a lente natural do olho, fica opaco. A visão embaça e as cores perdem o brilho.</p>
+        <ul><li>Avaliação e exames pré-operatórios</li><li>Cirurgia com troca do cristalino por uma lente intraocular</li></ul>
+        <p class="who">Dra. Giovanna Cendron</p>
+      </article>
+      <article class="area" data-a="glaucoma">
+        <h3>Glaucoma</h3>
+        <p>Doença do nervo óptico que costuma avançar sem dor e sem sintomas no começo. O diagnóstico precoce faz diferença.</p>
+        <ul><li>Medida da pressão ocular</li><li>Retinografia e tomografia de coerência óptica (OCT)</li><li>Acompanhamento contínuo</li></ul>
+        <p class="who">Dr. João Carlos Cendron</p>
+      </article>
+      <article class="area" data-a="retina">
+        <h3>Retina</h3>
+        <p>Avaliação da parte do olho que transforma luz em imagem, importante para quem tem diabetes ou pressão alta.</p>
+        <ul><li>Tomografia de coerência óptica (OCT)</li><li>Injeções intravítreas</li><li>Vitrectomia</li></ul>
+        <p class="who">Dr. Gabriel Cendron</p>
+      </article>
+      <article class="area" data-a="pediatria">
+        <h3>Oftalmopediatria e estrabismo</h3>
+        <p>Cuidado com a visão de bebês, crianças e adolescentes, fase em que enxergar bem pesa no aprendizado.</p>
+        <ul><li>Consulta infantil</li><li>Avaliação e cirurgia de estrabismo</li></ul>
+        <p class="who">Dra. Virgínia Delacroix</p>
+      </article>
+      <article class="area" data-a="plastica">
+        <h3>Plástica ocular</h3>
+        <p>Cuidado com pálpebras e vias lacrimais, por função e por conforto.</p>
+        <ul><li>Blefaroplastia</li><li>Obstrução das vias lacrimais</li><li>Remoção de tumorações palpebrais</li><li>Prótese ocular</li></ul>
+        <p class="who">Dra. Janiffer Keiko</p>
+      </article>
+      <article class="area" data-a="refrativa">
+        <h3>Grau, óculos e cirurgia refrativa</h3>
+        <p>Miopia, hipermetropia, astigmatismo e a dificuldade de perto que costuma aparecer depois dos 40.</p>
+        <ul><li>Consulta com exame de refração</li><li>Avaliação para cirurgia refrativa</li></ul>
+        <p class="who">Dr. João Carlos Cendron</p>
+      </article>
+      <article class="area" data-a="superficie">
+        <h3>Olho seco e pterígio</h3>
+        <p>Ardência, sensação de areia e a película que cresce sobre o olho, comum em quem passa muito tempo ao sol.</p>
+        <ul><li>Tratamento do olho seco</li><li>Cirurgia de pterígio</li></ul>
+        <p class="who">Equipe HDOL</p>
+      </article>
+      <article class="area" data-a="glaucoma retina catarata">
+        <h3>Exames oftalmológicos</h3>
+        <p>Exames que mostram o que a consulta sozinha não vê, rápidos e sem dor.</p>
+        <ul><li>Tomografia de coerência óptica (OCT)</li><li>Retinografia</li><li>Acuidade visual</li></ul>
+        <p class="who">Com pedido médico ou após a consulta</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="sim" id="simulador" aria-labelledby="h-sim">
+  <div class="wrap">
+    <div>
+      <h2 id="h-sim">Veja como algumas doenças mudam a visão</h2>
+      <p class="lead" style="margin-top:1rem">Arraste a linha sobre a foto da nossa recepção. À esquerda, uma visão saudável. À direita, a simulação.</p>
+      <div class="seg" role="group" aria-label="Escolha a condição">
+        <button aria-pressed="true" data-c="catarata">Catarata</button>
+        <button aria-pressed="false" data-c="glaucoma">Glaucoma</button>
+        <button aria-pressed="false" data-c="dmri">Degeneração macular</button>
+        <button aria-pressed="false" data-c="retinopatia">Retinopatia diabética</button>
+      </div>
+      <div class="sim-info" aria-live="polite" id="sim-info"></div>
+      <p class="sim-note">Simulação ilustrativa. Os sintomas variam de pessoa para pessoa, e só o exame oftalmológico confirma um diagnóstico.</p>
+    </div>
+    <div class="viewer catarata" id="viewer">
+      <img src="img/recepcao.jpg" alt="Recepção do HDOL vista com visão saudável" draggable="false">
+      <div class="cond"><img src="img/recepcao.jpg" alt="" draggable="false"></div>
+      <span class="tag l">Visão saudável</span>
+      <span class="tag r" id="tag-r">Catarata</span>
+      <div class="line"></div>
+      <div class="knob" aria-hidden="true"><svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="30" fill="none" stroke="currentColor" stroke-width="16" stroke-dasharray="5.6 2.25" transform="rotate(-90 50 50)"/></svg></div>
+      <input type="range" min="0" max="100" value="50" aria-label="Comparar visão saudável com a simulação" id="sim-range">
+    </div>
+  </div>
+</section>
+
+<section id="estrutura" aria-labelledby="h-est">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2 id="h-est">Um hospital pensado para o olho</h2>
+      <p class="lead">Consultas, exames e cirurgias no mesmo lugar. O centro cirúrgico fica na unidade do Lago Norte.</p>
+    </div>
+    <div class="gal">
+      <button class="g1" data-i="0"><img src="img/cirurgia.jpg" alt="Médicos de roupa cirúrgica trabalhando ao microscópio"><span>Centro cirúrgico</span></button>
+      <button class="g2" data-i="1"><img src="img/recepcao.jpg" alt="Recepção do HDOL com o logo na parede"><span>Recepção</span></button>
+      <button class="g3" data-i="2"><img src="img/centro.jpg" alt="Microscópio cirúrgico na sala de cirurgia"><span>Sala de cirurgia</span></button>
+      <button class="g4" data-i="3"><img src="img/exame.jpg" alt="Equipamento de exame oftalmológico com monitores"><span>Exames</span></button>
+      <button class="g5" data-i="4"><img src="img/entrada.jpg" alt="Entrada da unidade com placa do HDOL"><span>Entrada</span></button>
+    </div>
+  </div>
+</section>
+
+<dialog class="lb" id="lb" aria-label="Foto ampliada">
+  <figure><img id="lb-img" src="" alt=""><figcaption id="lb-cap"></figcaption></figure>
+  <button class="lb-ctrl lb-prev" aria-label="Foto anterior">‹</button>
+  <button class="lb-ctrl lb-next" aria-label="Próxima foto">›</button>
+  <button class="lb-close" aria-label="Fechar">×</button>
+</dialog>
+
+<section class="equipe" id="equipe" aria-labelledby="h-eq">
+  <div class="wrap">
+    <figure>
+      <img src="img/equipe.jpg" alt="Corpo clínico do HDOL reunido, de jaleco branco">
+      <figcaption>Corpo clínico do HDOL.</figcaption>
+    </figure>
+    <div>
+      <h2 id="h-eq">De pai para filhos</h2>
+      <p class="lead" style="margin-top:1rem">O HDOL nasceu de uma família de oftalmologistas: pai, filho e filha, hoje ao lado de uma equipe que cobre cada fase da visão, da infância à maturidade.</p>
+      <ul class="docs">
+        <li><b>Dr. João Carlos Cendron</b><span class="crm">CRM 4604/DF</span><span class="area-d">Glaucoma, refrativa e pediatria</span></li>
+        <li><b>Dra. Giovanna Cendron</b><span class="crm">CRM 022528/DF</span><span class="area-d">Catarata</span></li>
+        <li><b>Dr. Gabriel Cendron</b><span class="crm">CRM 020311/DF</span><span class="area-d">Retina. Responsável técnico <span class="pend">RQE a confirmar</span></span></li>
+        <li><b>Dra. Janiffer Keiko</b><span class="crm">CRM 21365/DF</span><span class="area-d">Plástica ocular <span class="pend">RQE a confirmar</span></span></li>
+        <li><b>Dra. Virgínia Delacroix</b><span class="crm">CRM 5618/DF</span><span class="area-d">Oftalmopediatria e estrabismo <span class="pend">RQE a confirmar</span></span></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section id="unidades" aria-labelledby="h-un">
+  <div class="wrap">
+    <div class="sec-head"><h2 id="h-un">Nossas unidades</h2></div>
+    <div class="tabs" role="tablist" aria-label="Unidades">
+      <button role="tab" id="t-ln" aria-controls="p-ln" aria-selected="true">Lago Norte</button>
+      <button role="tab" id="t-as" aria-controls="p-as" aria-selected="false" tabindex="-1">Asa Sul</button>
+    </div>
+    <div class="panel" role="tabpanel" id="p-ln" aria-labelledby="t-ln">
+      <dl>
+        <dt>Endereço</dt><dd>SHIN CA 5, Bloco J2, salas 108 a 115, Lago Norte, Brasília, DF. CEP 71503-505</dd>
+        <dt>Horário</dt><dd>Segunda a sexta, 8h às 18h. Sábado, 8h às 12h.</dd>
+        <dt>Telefones</dt><dd><a href="tel:+556131424848">(61) 3142-4848</a> e <a href="https://wa.me/5561999656111">WhatsApp (61) 99965-6111</a></dd>
+        <dt>Estrutura</dt><dd>Consultas, exames e centro cirúrgico</dd>
+      </dl>
+      <div class="card">
+        <h3>Como chegar</h3>
+        <p>No Centro de Atividades do Lago Norte, no bloco J2.</p>
+        <a class="btn ghost" href="https://www.google.com/maps/search/?api=1&query=SHIN%20CA%205%20Bloco%20J2%20Lago%20Norte%20Bras%C3%ADlia" target="_blank" rel="noopener">Abrir no mapa</a>
+      </div>
+    </div>
+    <div class="panel" role="tabpanel" id="p-as" aria-labelledby="t-as" hidden>
+      <dl>
+        <dt>Endereço</dt><dd>SHLS 716, Conjunto F, salas 201 e 203, Asa Sul, Brasília, DF</dd>
+        <dt>Horário</dt><dd>Segunda a sexta, 8h às 18h. Sábado, 8h às 12h. <span class="pend">confirmar horário da unidade</span></dd>
+        <dt>Telefones</dt><dd><a href="tel:+556131424848">(61) 3142-4848</a> e <a href="https://wa.me/5561999656111">WhatsApp (61) 99965-6111</a></dd>
+        <dt>Estrutura</dt><dd>Consultas e exames</dd>
+      </dl>
+      <div class="card">
+        <h3>Como chegar</h3>
+        <p>No Centro Clínico Sul, na quadra 716 do Setor Hospitalar Local Sul.</p>
+        <a class="btn ghost" href="https://www.google.com/maps/search/?api=1&query=SHLS%20716%20Conjunto%20F%20Asa%20Sul%20Bras%C3%ADlia" target="_blank" rel="noopener">Abrir no mapa</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="conv" id="convenios" aria-labelledby="h-cv">
+  <div class="wrap">
+    <div>
+      <h2 id="h-cv">Seu convênio é aceito?</h2>
+      <p class="lead" style="margin:1rem 0 2rem">Digite o nome do seu plano ou parceiro. Se ele não aparecer, pergunte no WhatsApp antes de marcar.</p>
+      <div class="search">
+        <label for="cv-q">Nome do convênio</label>
+        <input id="cv-q" type="search" placeholder="Ex.: Bombeiros, CAADF" autocomplete="off">
+      </div>
+      <p class="conv-result" id="cv-res" aria-live="polite"></p>
+    </div>
+    <div>
+      <ul class="conv-list" id="cv-list">
+        <li data-k="cbmdf corpo de bombeiros militar distrito federal"><b>Corpo de Bombeiros Militar do DF (CBMDF)</b><span>Rede credenciada: militares, pensionistas e beneficiários</span></li>
+        <li data-k="caadf caixa de assistencia dos advogados oab"><b>CAADF</b><span>30% de desconto em consultas e exames, na unidade Lago Norte</span></li>
+        <li data-k="clique medicos"><b>Clique Médicos</b><span>Parceria com preços especiais</span></li>
+        <li data-k="marktclub markt club"><b>MarktClub</b><span>15% de desconto nos serviços do HDOL</span></li>
+        <li data-k="masterclin master clin"><b>MasterClin</b><span>20% de desconto no exame de acuidade visual</span></li>
+        <li data-k="particular sem convenio"><b>Particular</b><span>Atendimento sem convênio</span></li>
+      </ul>
+      <p class="hint" style="margin-top:1rem"><span class="pend">lista parcial</span> Os demais convênios entram aqui quando o HDOL enviar a lista oficial.</p>
+    </div>
+  </div>
+</section>
+
+<section class="agendar" id="agendar" aria-labelledby="h-ag">
+  <div class="wrap">
+    <div>
+      <h2 id="h-ag">Agende em quatro passos</h2>
+      <p class="lead" style="margin-top:1rem">Preencha o que precisa e a mensagem chega pronta ao WhatsApp da recepção. Ninguém fica esperando digitar tudo de novo.</p>
+      <div class="contato-direto">
+        <a href="tel:+556131424848">(61) 3142-4848<span>Telefone das duas unidades</span></a>
+        <a href="https://wa.me/5561920007750" target="_blank" rel="noopener">(61) 92000-7750<span>WhatsApp exclusivo para cirurgias</span></a>
+      </div>
+    </div>
+    <div>
+      <ol class="steps" aria-label="Etapas do agendamento">
+        <li class="on">Unidade</li><li>Atendimento</li><li>Convênio e horário</li><li>Seus dados</li>
+      </ol>
+      <form class="ag" id="ag" novalidate>
+        <fieldset data-s="0">
+          <legend>Em qual unidade?</legend>
+          <div class="opts">
+            <label class="opt"><input type="radio" name="unidade" value="Lago Norte"><span><b>Lago Norte</b><small>Consultas, exames e cirurgias</small></span></label>
+            <label class="opt"><input type="radio" name="unidade" value="Asa Sul"><span><b>Asa Sul</b><small>Consultas e exames</small></span></label>
+            <label class="opt"><input type="radio" name="unidade" value="Tanto faz"><span><b>Tanto faz</b><small>A que tiver horário antes</small></span></label>
+          </div>
+        </fieldset>
+        <fieldset data-s="1" hidden>
+          <legend>Que tipo de atendimento?</legend>
+          <div class="opts">
+            <label class="opt"><input type="radio" name="tipo" value="Consulta"><span><b>Consulta</b></span></label>
+            <label class="opt"><input type="radio" name="tipo" value="Exame"><span><b>Exame</b><small>Com pedido médico</small></span></label>
+            <label class="opt"><input type="radio" name="tipo" value="Avaliação para cirurgia"><span><b>Avaliação para cirurgia</b></span></label>
+            <label class="opt"><input type="radio" name="tipo" value="Retorno"><span><b>Retorno</b></span></label>
+          </div>
+          <div class="field">
+            <label for="ag-area">Área, se souber</label>
+            <select id="ag-area" name="area">
+              <option value="">Não sei, quero orientação</option>
+              <option>Catarata</option><option>Glaucoma</option><option>Retina</option>
+              <option>Oftalmopediatria e estrabismo</option><option>Plástica ocular</option>
+              <option>Grau, óculos e cirurgia refrativa</option><option>Olho seco e pterígio</option>
+            </select>
+          </div>
+        </fieldset>
+        <fieldset data-s="2" hidden>
+          <legend>Convênio e melhor horário</legend>
+          <div class="field">
+            <label for="ag-conv">Convênio</label>
+            <select id="ag-conv" name="convenio">
+              <option value="">Escolha</option>
+              <option>Particular</option><option>CBMDF</option><option>CAADF</option><option>Clique Médicos</option>
+              <option>MarktClub</option><option>MasterClin</option><option>Outro (informo na conversa)</option>
+            </select>
+          </div>
+          <div class="opts">
+            <label class="opt"><input type="radio" name="periodo" value="Manhã"><span><b>Manhã</b><small>8h às 12h</small></span></label>
+            <label class="opt"><input type="radio" name="periodo" value="Tarde"><span><b>Tarde</b><small>12h às 18h</small></span></label>
+            <label class="opt"><input type="radio" name="periodo" value="Sábado de manhã"><span><b>Sábado</b><small>8h às 12h</small></span></label>
+          </div>
+        </fieldset>
+        <fieldset data-s="3" hidden>
+          <legend>Seus dados</legend>
+          <div class="field" id="f-nome">
+            <label for="ag-nome">Nome do paciente</label>
+            <input id="ag-nome" name="nome" autocomplete="name" required>
+            <span class="msg" aria-live="polite"></span>
+          </div>
+          <div class="field" id="f-tel">
+            <label for="ag-tel">Celular com DDD</label>
+            <input id="ag-tel" name="tel" inputmode="tel" autocomplete="tel" placeholder="(61) 90000-0000" required>
+            <span class="msg" aria-live="polite"></span>
+          </div>
+        </fieldset>
+        <div class="done-box" id="done" hidden>
+          <h3>Mensagem pronta</h3>
+          <p>Confira e envie pelo WhatsApp. A recepção responde com os horários disponíveis.</p>
+          <pre id="done-msg"></pre>
+          <a class="btn" id="done-link" href="#" target="_blank" rel="noopener">Abrir conversa no WhatsApp</a>
+          <button type="button" class="btn ghost" id="restart">Começar de novo</button>
+        </div>
+        <p class="err-step" id="err" aria-live="assertive"></p>
+        <div class="nav-btns" id="navb">
+          <button type="button" class="btn ghost" id="back" hidden>Voltar</button>
+          <button type="button" class="btn" id="next" style="margin-left:auto">Continuar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<section class="faq" aria-labelledby="h-faq">
+  <div class="wrap">
+    <div class="sec-head"><h2 id="h-faq">Dúvidas frequentes</h2></div>
+    <details><summary>Qual unidade tem centro cirúrgico?</summary><p>O centro cirúrgico fica na unidade do Lago Norte, no SHIN CA 5, Bloco J2. A unidade da Asa Sul faz consultas e exames.</p></details>
+    <details><summary>Como tiro dúvidas sobre uma cirurgia?</summary><p>Fale direto com a equipe pelo WhatsApp exclusivo de cirurgias, (61) 92000-7750. Ele atende antes, durante e depois do procedimento.</p></details>
+    <details><summary>Vocês atendem crianças?</summary><p>Sim. O HDOL tem oftalmopediatria, com atendimento de bebês, crianças e adolescentes, além de avaliação de estrabismo.</p></details>
+    <details><summary>Posso dirigir depois da consulta?</summary><p>Alguns exames usam colírio que dilata a pupila e deixa a visão embaçada por algumas horas. Quando for o seu caso, a recepção avisa no agendamento. Nesses dias, prefira vir acompanhado e não dirigir.</p></details>
+    <details><summary>Meu convênio não está na lista. E agora?</summary><p>A lista do site ainda está sendo completada. Mande o nome do seu plano pelo WhatsApp (61) 99965-6111 e a recepção confirma antes de marcar.</p></details>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div>
+      <a class="logo" href="#inicio" aria-label="HDOL, voltar ao início">
+        <span class="mark" aria-hidden="true"><span class="h">H</span><span class="d">D</span><svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="33" fill="none" stroke="currentColor" stroke-width="26" stroke-dasharray="6.4 2.24" transform="rotate(-90 50 50)"/></svg><span class="l">L</span></span>
+        <small>Hospital de Olhos do Lago Norte</small>
+      </a>
+      <p style="margin-top:1rem">Consultas, exames e cirurgias oftalmológicas em Brasília.</p>
+    </div>
+    <div>
+      <h3>Lago Norte</h3>
+      <p>SHIN CA 5, Bloco J2, salas 108 a 115</p>
+    </div>
+    <div>
+      <h3>Asa Sul</h3>
+      <p>SHLS 716, Conjunto F, salas 201 e 203</p>
+    </div>
+    <div>
+      <h3>Contato</h3>
+      <ul>
+        <li><a href="tel:+556131424848">(61) 3142-4848</a></li>
+        <li><a href="https://wa.me/5561999656111">WhatsApp (61) 99965-6111</a></li>
+        <li><a href="https://www.instagram.com/hdolagonorte/" target="_blank" rel="noopener">Instagram @hdolagonorte</a></li>
+      </ul>
+    </div>
+    <div class="legal">
+      <span>Responsável técnico: Dr. Gabriel Scotta Cendron, CRM 020311/DF</span>
+      <span>© 2026 Hospital de Olhos do Lago Norte</span>
+    </div>
+  </div>
+</footer>
+
+<button class="totop" id="totop" aria-label="Voltar ao topo">↑</button>
+
+<script>
+(function(){
+  // cabeçalho e voltar ao topo
+  var header=document.querySelector('header.top'), totop=document.getElementById('totop');
+  function onScroll(){var y=window.scrollY;header.classList.toggle('stuck',y>10);totop.classList.toggle('show',y>900);}
+  window.addEventListener('scroll',onScroll,{passive:true});onScroll();
+  totop.addEventListener('click',function(){window.scrollTo({top:0,behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'});});
+
+  // menu mobile
+  var mb=document.querySelector('.menu-btn'), menu=document.getElementById('menu');
+  mb.addEventListener('click',function(){var o=mb.getAttribute('aria-expanded')!=='true';mb.setAttribute('aria-expanded',o);mb.setAttribute('aria-label',o?'Fechar menu':'Abrir menu');menu.classList.toggle('open',o);});
+  menu.addEventListener('click',function(e){if(e.target.tagName==='A'){mb.setAttribute('aria-expanded','false');mb.setAttribute('aria-label','Abrir menu');menu.classList.remove('open');}});
+
+  // filtro por sintoma
+  var chips=[].slice.call(document.querySelectorAll('.chip')), areas=[].slice.call(document.querySelectorAll('.area')), st=document.getElementById('chip-status');
+  function filtra(){
+    var sel={};chips.forEach(function(c){if(c.getAttribute('aria-pressed')==='true')c.dataset.t.split(' ').forEach(function(t){sel[t]=1;});});
+    var ks=Object.keys(sel), n=0;
+    areas.forEach(function(a){var on=!ks.length||a.dataset.a.split(' ').some(function(t){return sel[t];});a.hidden=!on;a.classList.toggle('match',!!ks.length&&on);if(on)n++;});
+    st.textContent=ks.length?(n===1?'1 área cuida disso.':n+' áreas cuidam disso.')+' Isto é só um guia: quem orienta o tratamento é o médico, na consulta.':'Mostrando todas as áreas. Isto é só um guia: quem orienta o tratamento é o médico, na consulta.';
+  }
+  chips.forEach(function(c){c.addEventListener('click',function(){c.setAttribute('aria-pressed',c.getAttribute('aria-pressed')==='true'?'false':'true');filtra();});});
+
+  // simulador
+  var info={
+    catarata:['Catarata','O cristalino, a lente natural do olho, fica opaco com o tempo. A visão embaça, as cores ficam amareladas e a luz forte ofusca.','É uma das causas mais comuns de perda de visão com a idade, e tem tratamento cirúrgico.'],
+    glaucoma:['Glaucoma','O nervo óptico sofre lesão, em geral sem dor. A perda costuma começar pelas laterais e avança devagar, por isso muita gente só percebe tarde.','Exames de rotina ajudam a identificar antes que a visão central seja afetada.'],
+    dmri:['Degeneração macular','A doença atinge a mácula, o centro da retina. O ponto para onde você olha fica borrado ou escuro, enquanto as laterais continuam visíveis.','É mais frequente depois dos 50 anos.'],
+    retinopatia:['Retinopatia diabética','O excesso de açúcar no sangue danifica os vasos da retina. Podem surgir manchas escuras e áreas sem nitidez.','Quem tem diabetes precisa de avaliação da retina periódica, mesmo sem sintomas.']
+  };
+  var viewer=document.getElementById('viewer'), range=document.getElementById('sim-range'), simInfo=document.getElementById('sim-info'), tagR=document.getElementById('tag-r');
+  var segs=[].slice.call(document.querySelectorAll('.seg button'));
+  function setCond(c){
+    viewer.className='viewer '+c;tagR.textContent=info[c][0];
+    simInfo.innerHTML='<p>'+info[c][1]+'</p><p>'+info[c][2]+'</p>';
+    segs.forEach(function(b){b.setAttribute('aria-pressed',b.dataset.c===c?'true':'false');});
+  }
+  segs.forEach(function(b){b.addEventListener('click',function(){setCond(b.dataset.c);});});
+  range.addEventListener('input',function(){viewer.style.setProperty('--pos',range.value+'%');});
+  setCond('catarata');
+
+  // galeria e lightbox
+  var gal=[].slice.call(document.querySelectorAll('.gal button')), lb=document.getElementById('lb'), lbImg=document.getElementById('lb-img'), lbCap=document.getElementById('lb-cap'), cur=0;
+  function show(i){cur=(i+gal.length)%gal.length;var im=gal[cur].querySelector('img');lbImg.src=im.src;lbImg.alt=im.alt;lbCap.textContent=gal[cur].querySelector('span').textContent;}
+  gal.forEach(function(b,i){b.addEventListener('click',function(){show(i);if(lb.showModal)lb.showModal();});});
+  lb.querySelector('.lb-prev').addEventListener('click',function(){show(cur-1);});
+  lb.querySelector('.lb-next').addEventListener('click',function(){show(cur+1);});
+  lb.querySelector('.lb-close').addEventListener('click',function(){lb.close();});
+  lb.addEventListener('click',function(e){if(e.target===lb)lb.close();});
+  lb.addEventListener('keydown',function(e){if(e.key==='ArrowLeft')show(cur-1);if(e.key==='ArrowRight')show(cur+1);});
+
+  // abas das unidades
+  var tabs=[].slice.call(document.querySelectorAll('[role=tab]'));
+  function sel(t){tabs.forEach(function(x){var on=x===t;x.setAttribute('aria-selected',on);x.tabIndex=on?0:-1;document.getElementById(x.getAttribute('aria-controls')).hidden=!on;});t.focus();}
+  tabs.forEach(function(t,i){t.addEventListener('click',function(){sel(t);});t.addEventListener('keydown',function(e){if(e.key==='ArrowRight')sel(tabs[(i+1)%tabs.length]);if(e.key==='ArrowLeft')sel(tabs[(i-1+tabs.length)%tabs.length]);});});
+
+  // convênios
+  var q=document.getElementById('cv-q'), res=document.getElementById('cv-res'), items=[].slice.call(document.querySelectorAll('#cv-list li'));
+  function norm(s){return s.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').trim();}
+  q.addEventListener('input',function(){
+    var v=norm(q.value),hits=0;
+    items.forEach(function(li){var h=v.length>1&&(norm(li.dataset.k).indexOf(v)>-1||norm(li.querySelector('b').textContent).indexOf(v)>-1);li.classList.toggle('hit',h);if(h)hits++;});
+    if(v.length<2){res.textContent='';return;}
+    res.innerHTML=hits?'Encontrado. Confira os detalhes destacados ao lado.':'Não encontramos “'+q.value.replace(/[<>&]/g,'')+'” na lista. Pergunte no <a href="https://wa.me/5561999656111" target="_blank" rel="noopener">WhatsApp (61) 99965-6111</a> antes de marcar.';
+  });
+
+  // agendamento em etapas
+  var form=document.getElementById('ag'), sets=[].slice.call(form.querySelectorAll('fieldset')), stepsLi=[].slice.call(document.querySelectorAll('.steps li'));
+  var next=document.getElementById('next'), back=document.getElementById('back'), err=document.getElementById('err'), step=0;
+  var nome=document.getElementById('ag-nome'), tel=document.getElementById('ag-tel');
+  function val(n){var r=form.querySelector('input[name="'+n+'"]:checked');return r?r.value:'';}
+  function digits(s){return s.replace(/\D/g,'');}
+  function checkTel(show){var d=digits(tel.value),f=document.getElementById('f-tel'),m=f.querySelector('.msg'),ok=/^\d{2}9\d{8}$/.test(d);
+    if(!tel.value){f.className='field';m.textContent='';return false;}
+    f.className='field '+(ok?'ok':(show?'bad':''));m.textContent=ok?'✓ Número válido':(show?'Use DDD e celular com 9 dígitos, ex.: (61) 99999-0000':'');return ok;}
+  function checkNome(show){var f=document.getElementById('f-nome'),m=f.querySelector('.msg'),ok=nome.value.trim().split(/\s+/).length>=2;
+    f.className='field '+(ok?'ok':(show?'bad':''));m.textContent=ok?'✓':(show?'Escreva nome e sobrenome':'');return ok;}
+  tel.addEventListener('input',function(){var d=digits(tel.value).slice(0,11);var o=d;if(d.length>2)o='('+d.slice(0,2)+') '+d.slice(2);if(d.length>7)o='('+d.slice(0,2)+') '+d.slice(2,7)+'-'+d.slice(7);tel.value=o;checkTel(d.length>=11);});
+  tel.addEventListener('blur',function(){checkTel(true);});
+  nome.addEventListener('input',function(){checkNome(false);});
+  nome.addEventListener('blur',function(){checkNome(true);});
+  function go(s){
+    step=s;sets.forEach(function(f,i){f.hidden=i!==s;});
+    stepsLi.forEach(function(li,i){li.className=i<s?'done':(i===s?'on':'');});
+    back.hidden=s===0;next.textContent=s===3?'Montar mensagem':'Continuar';err.textContent='';
+  }
+  function ok(){
+    if(step===0&&!val('unidade'))return 'Escolha uma unidade.';
+    if(step===1&&!val('tipo'))return 'Escolha o tipo de atendimento.';
+    if(step===2&&(!form.convenio.value||!val('periodo')))return 'Escolha o convênio e o melhor período.';
+    if(step===3){var a=checkNome(true),b=checkTel(true);if(!a||!b)return 'Confira os campos destacados.';}
+    return '';
+  }
+  next.addEventListener('click',function(){
+    var e=ok();if(e){err.textContent=e;return;}
+    if(step<3){go(step+1);sets[step].querySelector('input,select').focus();return;}
+    next.classList.add('loading');next.setAttribute('aria-label','Montando mensagem');
+    setTimeout(function(){
+      var tipo=val('tipo'),area=form.area.value;
+      var msg='Olá! Gostaria de agendar pelo site do HDOL.\n\nPaciente: '+nome.value.trim()+'\nCelular: '+tel.value+'\nUnidade: '+val('unidade')+'\nAtendimento: '+tipo+(area?' ('+area+')':'')+'\nConvênio: '+form.convenio.value+'\nMelhor período: '+val('periodo');
+      var num=tipo==='Avaliação para cirurgia'?'5561920007750':'5561999656111';
+      document.getElementById('done-msg').textContent=msg;
+      document.getElementById('done-link').href='https://wa.me/'+num+'?text='+encodeURIComponent(msg);
+      sets.forEach(function(f){f.hidden=true;});document.getElementById('navb').hidden=true;
+      stepsLi.forEach(function(li){li.className='done';});
+      var d=document.getElementById('done');d.hidden=false;d.querySelector('h3').setAttribute('tabindex','-1');d.querySelector('h3').focus();
+      next.classList.remove('loading');next.removeAttribute('aria-label');
+    },700);
+  });
+  back.addEventListener('click',function(){if(step>0)go(step-1);});
+  document.getElementById('restart').addEventListener('click',function(){form.reset();['f-nome','f-tel'].forEach(function(id){var f=document.getElementById(id);f.className='field';f.querySelector('.msg').textContent='';});document.getElementById('done').hidden=true;document.getElementById('navb').hidden=false;go(0);});
+  go(0);
+})();
+</script>
+</body>
+</html>
