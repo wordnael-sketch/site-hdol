@@ -84,11 +84,8 @@ header.top.stuck{box-shadow:0 8px 24px -18px rgba(15,47,92,.6)}
 body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:color-mix(in srgb,var(--papel) 92%,transparent);backdrop-filter:blur(10px)}
 .top .wrap{display:flex;align-items:center;gap:1.5rem;min-height:76px}
 .logo{display:flex;align-items:center;gap:.7rem;text-decoration:none;color:inherit;margin-right:auto}
-.logo .mark{display:flex;align-items:center;font:700 2rem/1 var(--display);letter-spacing:-.02em}
-.logo .mark .h{color:var(--azul)}
-.logo .mark .d,.logo .mark .l{color:var(--salvia)}
-.logo .mark svg{width:1.55rem;height:1.55rem;color:var(--azul);margin-inline:.05rem}
-.logo small{font-size:.78rem;line-height:1.15;color:var(--tinta-suave);max-width:9.5rem}
+.logo img{height:56px;width:auto;max-width:none}
+@media (max-width:520px){.logo img{height:46px}}
 nav.main{display:flex;gap:1.4rem}
 nav.main a{color:var(--tinta);text-decoration:none;font:500 1rem var(--display);padding:.4rem 0;background:linear-gradient(var(--azul),var(--azul)) left bottom/0 2px no-repeat;transition:background-size .3s}
 nav.main a:hover{background-size:100% 2px}
@@ -305,9 +302,6 @@ footer a{color:#fff}
 footer p,footer li{font-size:.98rem}
 footer ul{list-style:none;padding:0;margin:0;display:grid;gap:.4rem}
 footer .legal{grid-column:1/-1;border-top:1px solid rgba(255,255,255,.15);padding-top:1.5rem;font-size:.9rem;color:#aac0d8;display:flex;flex-wrap:wrap;gap:.5rem 2rem;justify-content:space-between}
-footer .logo .mark .h, footer .logo .mark svg{color:#fff}
-footer .logo .mark .d, footer .logo .mark .l{color:#aab9b4}
-footer .logo small{color:#c3d3e4}
 @media (max-width:860px){footer .wrap{grid-template-columns:1fr 1fr}}
 @media (max-width:520px){footer .wrap{grid-template-columns:1fr}}
 
@@ -325,8 +319,7 @@ footer .logo small{color:#c3d3e4}
 <header class="top" id="topo">
   <div class="wrap">
     <a class="logo" href="#inicio" aria-label="HDOL, Hospital de Olhos do Lago Norte, início">
-      <span class="mark" aria-hidden="true"><span class="h">H</span><span class="d">D</span><svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="33" fill="none" stroke="currentColor" stroke-width="26" stroke-dasharray="6.4 2.24" transform="rotate(-90 50 50)"/></svg><span class="l">L</span></span>
-      <small>Hospital de Olhos do Lago Norte</small>
+      <img src="img/logo-hdol-colorida.svg" alt="Hospital de Olhos do Lago Norte" width="409" height="171">
     </a>
     <nav class="main" id="menu" aria-label="Principal">
       <a href="#atendimento">Atendimento</a>
@@ -674,8 +667,7 @@ footer .logo small{color:#c3d3e4}
   <div class="wrap">
     <div>
       <a class="logo" href="#inicio" aria-label="HDOL, voltar ao início">
-        <span class="mark" aria-hidden="true"><span class="h">H</span><span class="d">D</span><svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="33" fill="none" stroke="currentColor" stroke-width="26" stroke-dasharray="6.4 2.24" transform="rotate(-90 50 50)"/></svg><span class="l">L</span></span>
-        <small>Hospital de Olhos do Lago Norte</small>
+        <img src="img/logo-hdol-branca.svg" alt="Hospital de Olhos do Lago Norte" width="409" height="171">
       </a>
       <p style="margin-top:1rem">Consultas, exames e cirurgias oftalmológicas em Brasília.</p>
     </div>
