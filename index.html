@@ -231,6 +231,7 @@ dialog.lb figcaption{color:#fff;font:500 1.05rem var(--display)}
 /* convênios */
 .conv{background:var(--gelo)}
 .conv .wrap{display:grid;grid-template-columns:.9fr 1.1fr;gap:clamp(2rem,5vw,4rem)}
+.conv .wrap>div{min-width:0}
 .search{display:grid;gap:.5rem}
 .search label{font:600 1.05rem var(--display)}
 .search input{font:inherit;font-size:1.15rem;padding:1rem 1.2rem;border-radius:14px;border:2px solid var(--linha);background:var(--papel);color:var(--tinta)}
@@ -241,6 +242,15 @@ dialog.lb figcaption{color:#fff;font:500 1.05rem var(--display)}
 .conv-list li b{font:600 1.08rem var(--display);color:var(--azul-escuro)}
 .conv-list li span{color:var(--tinta-suave);font-size:.98rem}
 .conv-list li.hit{border-color:var(--azul);box-shadow:0 0 0 1px var(--azul)}
+.conv-list li[hidden]{display:none}
+.marquee{overflow:hidden;border-radius:16px;background:var(--papel);border:1px solid var(--linha);padding:1rem 0;margin-bottom:1rem;-webkit-mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent);mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent)}
+.marquee-track{display:flex;width:max-content;animation:cv-scroll 120s linear infinite}
+.marquee:hover .marquee-track,.marquee:focus-within .marquee-track,.marquee:focus .marquee-track{animation-play-state:paused}
+.marquee-set{display:flex;gap:.6rem;padding-right:.6rem}
+.cv-chip{white-space:nowrap;padding:.6rem 1.1rem;border-radius:999px;background:var(--gelo);border:1px solid var(--linha);font:600 .98rem var(--display);color:var(--azul-escuro)}
+@keyframes cv-scroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+@media (max-width:860px){.marquee{overflow-x:auto;-webkit-mask-image:none;mask-image:none}}
+@media (prefers-reduced-motion:reduce){.marquee{overflow-x:auto;-webkit-mask-image:none;mask-image:none}.marquee-track{animation:none}.marquee-set[aria-hidden="true"]{display:none}}
 @media (max-width:860px){.conv .wrap{grid-template-columns:1fr}}
 
 /* agendar */
@@ -495,9 +505,9 @@ footer .legal{grid-column:1/-1;border-top:1px solid rgba(255,255,255,.15);paddin
       <ul class="docs">
         <li><b>Dr. João Carlos Cendron</b><span class="crm">CRM 4604/DF</span><span class="area-d">Glaucoma, refrativa e pediatria</span></li>
         <li><b>Dra. Giovanna Cendron</b><span class="crm">CRM 022528/DF</span><span class="area-d">Catarata</span></li>
-        <li><b>Dr. Gabriel Cendron</b><span class="crm">CRM 020311/DF</span><span class="area-d">Retina. Responsável técnico <span class="pend">RQE a confirmar</span></span></li>
-        <li><b>Dra. Janiffer Keiko</b><span class="crm">CRM 21365/DF</span><span class="area-d">Plástica ocular <span class="pend">RQE a confirmar</span></span></li>
-        <li><b>Dra. Virgínia Delacroix</b><span class="crm">CRM 5618/DF</span><span class="area-d">Oftalmopediatria e estrabismo <span class="pend">RQE a confirmar</span></span></li>
+        <li><b>Dr. Gabriel Cendron</b><span class="crm">CRM 020311/DF</span><span class="area-d">Retina. Responsável técnico</span></li>
+        <li><b>Dra. Janiffer Keiko</b><span class="crm">CRM 21365/DF</span><span class="area-d">Plástica ocular</span></li>
+        <li><b>Dra. Virgínia Delacroix</b><span class="crm">CRM 5618/DF</span><span class="area-d">Oftalmopediatria e estrabismo</span></li>
       </ul>
     </div>
   </div>
@@ -546,20 +556,14 @@ footer .legal{grid-column:1/-1;border-top:1px solid rgba(255,255,255,.15);paddin
       <p class="lead" style="margin:1rem 0 2rem">Digite o nome do seu plano ou parceiro. Se ele não aparecer, pergunte no WhatsApp antes de marcar.</p>
       <div class="search">
         <label for="cv-q">Nome do convênio</label>
-        <input id="cv-q" type="search" placeholder="Ex.: Bombeiros, CAADF" autocomplete="off">
+        <input id="cv-q" type="search" placeholder="Ex.: GEAP, Notre Dame, Serpro" autocomplete="off">
       </div>
       <p class="conv-result" id="cv-res" aria-live="polite"></p>
     </div>
     <div>
-      <ul class="conv-list" id="cv-list">
-        <li data-k="cbmdf corpo de bombeiros militar distrito federal"><b>Corpo de Bombeiros Militar do DF (CBMDF)</b><span>Rede credenciada: militares, pensionistas e beneficiários</span></li>
-        <li data-k="caadf caixa de assistencia dos advogados oab"><b>CAADF</b><span>30% de desconto em consultas e exames, na unidade Lago Norte</span></li>
-        <li data-k="clique medicos"><b>Clique Médicos</b><span>Parceria com preços especiais</span></li>
-        <li data-k="marktclub markt club"><b>MarktClub</b><span>15% de desconto nos serviços do HDOL</span></li>
-        <li data-k="masterclin master clin"><b>MasterClin</b><span>20% de desconto no exame de acuidade visual</span></li>
-        <li data-k="particular sem convenio"><b>Particular</b><span>Atendimento sem convênio</span></li>
-      </ul>
-      <p class="hint" style="margin-top:1rem"><span class="pend">lista parcial</span> Os demais convênios entram aqui quando o HDOL enviar a lista oficial.</p>
+      <div class="marquee" id="cv-marquee" role="region" aria-label="Convênios atendidos no HDOL" tabindex="0"></div>
+<ul class="conv-list" id="cv-list"></ul>
+      <p class="hint" style="margin-top:1rem">Não achou o seu convênio? Chame a gente no <a href="https://wa.me/5561999656111" target="_blank" rel="noopener">WhatsApp (61) 99965-6111</a>. Confirmamos o seu plano e passamos todos os detalhes antes de você marcar.</p>
     </div>
   </div>
 </section>
@@ -613,8 +617,7 @@ footer .legal{grid-column:1/-1;border-top:1px solid rgba(255,255,255,.15);paddin
             <label for="ag-conv">Convênio</label>
             <select id="ag-conv" name="convenio">
               <option value="">Escolha</option>
-              <option>Particular</option><option>CBMDF</option><option>CAADF</option><option>Clique Médicos</option>
-              <option>MarktClub</option><option>MasterClin</option><option>Outro (informo na conversa)</option>
+              <option>Outro (informo na conversa)</option>
             </select>
           </div>
           <div class="opts">
@@ -660,7 +663,7 @@ footer .legal{grid-column:1/-1;border-top:1px solid rgba(255,255,255,.15);paddin
     <details><summary>Como tiro dúvidas sobre uma cirurgia?</summary><p>Fale direto com a equipe pelo WhatsApp exclusivo de cirurgias, (61) 92000-7750. Ele atende antes, durante e depois do procedimento.</p></details>
     <details><summary>Vocês atendem crianças?</summary><p>Sim. O HDOL tem oftalmopediatria, com atendimento de bebês, crianças e adolescentes, além de avaliação de estrabismo.</p></details>
     <details><summary>Posso dirigir depois da consulta?</summary><p>Alguns exames usam colírio que dilata a pupila e deixa a visão embaçada por algumas horas. Quando for o seu caso, a recepção avisa no agendamento. Nesses dias, prefira vir acompanhado e não dirigir.</p></details>
-    <details><summary>Meu convênio não está na lista. E agora?</summary><p>A lista do site ainda está sendo completada. Mande o nome do seu plano pelo WhatsApp (61) 99965-6111 e a recepção confirma antes de marcar.</p></details>
+    <details><summary>Meu convênio não está na lista. E agora?</summary><p>Chame a recepção pelo WhatsApp (61) 99965-6111 e informe o nome do seu plano. Confirmamos o atendimento e passamos todos os detalhes antes de marcar.</p></details>
   </div>
 </section>
 </main>
@@ -754,16 +757,6 @@ footer .legal{grid-column:1/-1;border-top:1px solid rgba(255,255,255,.15);paddin
   function sel(t){tabs.forEach(function(x){var on=x===t;x.setAttribute('aria-selected',on);x.tabIndex=on?0:-1;document.getElementById(x.getAttribute('aria-controls')).hidden=!on;});t.focus();}
   tabs.forEach(function(t,i){t.addEventListener('click',function(){sel(t);});t.addEventListener('keydown',function(e){if(e.key==='ArrowRight')sel(tabs[(i+1)%tabs.length]);if(e.key==='ArrowLeft')sel(tabs[(i-1+tabs.length)%tabs.length]);});});
 
-  // convênios
-  var q=document.getElementById('cv-q'), res=document.getElementById('cv-res'), items=[].slice.call(document.querySelectorAll('#cv-list li'));
-  function norm(s){return s.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').trim();}
-  q.addEventListener('input',function(){
-    var v=norm(q.value),hits=0;
-    items.forEach(function(li){var h=v.length>1&&(norm(li.dataset.k).indexOf(v)>-1||norm(li.querySelector('b').textContent).indexOf(v)>-1);li.classList.toggle('hit',h);if(h)hits++;});
-    if(v.length<2){res.textContent='';return;}
-    res.innerHTML=hits?'Encontrado. Confira os detalhes destacados ao lado.':'Não encontramos “'+q.value.replace(/[<>&]/g,'')+'” na lista. Pergunte no <a href="https://wa.me/5561999656111" target="_blank" rel="noopener">WhatsApp (61) 99965-6111</a> antes de marcar.';
-  });
-
   // agendamento em etapas
   var form=document.getElementById('ag'), sets=[].slice.call(form.querySelectorAll('fieldset')), stepsLi=[].slice.call(document.querySelectorAll('.steps li'));
   var next=document.getElementById('next'), back=document.getElementById('back'), err=document.getElementById('err'), step=0;
@@ -812,5 +805,6 @@ footer .legal{grid-column:1/-1;border-top:1px solid rgba(255,255,255,.15);paddin
   go(0);
 })();
 </script>
+<script src="convenios.js"></script>
 </body>
 </html>
